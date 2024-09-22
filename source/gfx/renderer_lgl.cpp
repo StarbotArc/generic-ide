@@ -1,10 +1,10 @@
+#include <GL/gl.h>
 #include "renderer.hpp"
 
 /**
  *	generic-ide - Legacy OpenGL Renderer.
 **/
 
-// Yes, we're using. Yes, it will probably be removed.
 using namespace gfx;
 
 // WARNING: Use this function for pointers.
@@ -35,10 +35,15 @@ Drawable* Renderer::find(std::string drawable)
 
 void Renderer::draw()
 {
+	glPushMatrix();
+	glScalef(2.0f, -2.0f, 0.0f);
+	glTranslatef(-0.5f, -0.5f, 0.0f);
+
 	for (Drawable* d : this->drawables)
 	{
 		d->draw();
 	}
+	glPopMatrix();
 }
 
 Drawable::Drawable(std::string name)

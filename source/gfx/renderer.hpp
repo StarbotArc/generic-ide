@@ -1,5 +1,5 @@
-#ifndef __GFX_RENDERER_H__
-#define __GFX_RENDERER_H__
+#ifndef __GFX_RENDERER_HPP__
+#define __GFX_RENDERER_HPP__
 
 #include <string>
 #include <vector>
@@ -33,4 +33,4 @@ namespace gfx
 	};
 };
 
-#endif//__GFX_RENDERER_H__
+#endif//__GFX_RENDERER_HPP__
