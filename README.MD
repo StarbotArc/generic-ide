@@ -1,5 +1,5 @@
 # generic-ide
-<img src="https://github.com/StarbotArc/generic-ide/blob/development/resource/icon-hq.png?raw=true"/>
+<img src="https://github.com/StarbotArc/generic-ide/blob/development/resource/icon.png?raw=true"/>
 
 The generic-ide project is a project meant to reinvent the modern IDE to a more customizable, stable, and efficient form.
 
