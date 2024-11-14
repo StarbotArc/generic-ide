@@ -14,6 +14,6 @@ It is recommended that you should first make a binary directory, as to keep out 
 
 Next, set what variables (GIDE_RENDERER) to what you want, you may find information either in the CMakeLists or in the documentation.
 
-Finally run `cmake -DGIDE_RENDERER="lgl" ...` <- That part is required, and CMake will not be setup unless you have a specified renderer. `... .. && cmake --build .`
+Finally run `cmake -DGIDE_RENDERER="lgl"` <- That part is required, and CMake will not be setup unless you have a specified renderer. ` .. && cmake --build .`
 
 You should have a binary built now, and now from there you can run generic-ide.
