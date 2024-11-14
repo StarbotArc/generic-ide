@@ -15,6 +15,11 @@ namespace ui
 			this->position = std::pair<float,float>(x, y);
 		};
 		virtual ~Panel() { }
+
+		virtual int onmousepress(int button, double x, double y) { return 0; }
+		virtual int onmousemove(double x, double y) { return 0; }
+		
+		virtual int onkeypress(int key, int modifiers) { return 0; }
 	protected:
 		std::pair<float,float> dimensions;
 		std::pair<float,float> position;

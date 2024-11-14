@@ -17,6 +17,7 @@ public:
 private:
 	GLFWwindow* window;
 	gfx::Renderer renderer;
+	gfx::FontRenderer fr;
 };
 
 #endif//__WINDOW_HPP__

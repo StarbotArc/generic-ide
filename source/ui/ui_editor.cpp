@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include <GL/gl.h>
+#include "../gfx/renderer.hpp"
 #include "ui.hpp"
 #include "ui_editor.hpp"
 
@@ -20,17 +20,19 @@ void Editor::update()
 }
 void Editor::draw()
 {
-	float x = this->position.first;
-	float y = this->position.second;
+	
+}
 
-	float w = this->dimensions.first;
-	float h = this->dimensions.second;
+int Editor::onmousepress(int button, double x, double y)
+{
+	return 0;
+}
+int Editor::onmousemove(double x, double y)
+{
+	return 0;
+}
 
-	glBegin(GL_QUADS);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex2f(x, y);
-	glVertex2f(x, y + h);
-	glVertex2f(x + w, y + h);
-	glVertex2f(x + w, y);
-	glEnd();
+int Editor::onkeypress(int key, int modifier)
+{
+	return 0;
 }

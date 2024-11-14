@@ -1,11 +1,20 @@
 #ifndef __GFX_RENDERER_HPP__
 #define __GFX_RENDERER_HPP__
 
+#include <freetype2/ft2build.h>
+#include FT_FREETYPE_H
+
 #include <string>
 #include <vector>
 
 namespace gfx
 {
+	void load_renderer();
+
+	class Quad {
+	
+	};
+
 	class Drawable
 	{
 	public:
@@ -16,6 +25,27 @@ namespace gfx
 		virtual void draw() {};
 	protected:
 		std::string name;
+	};
+
+	struct Glyph {
+		unsigned int texture;
+		int size[2];
+		int offset[2];
+		unsigned int shift;
+	};
+
+	class FontRenderer
+	{
+	public:
+		FontRenderer(std::string font);
+		virtual ~FontRenderer();
+
+		void init();
+
+		void print(std::string text, float x, float y, float scale, int width, int height);
+	private:
+		std::string font;
+		Glyph font_glyphs[128];
 	};
 
 	class Renderer
