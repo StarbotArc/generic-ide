@@ -31,6 +31,9 @@ make_directory("environment")
 # This will create a symlink towards the resource directory in the binary directory.
 file(CREATE_LINK ../resource ./resource SYMBOLIC)
 
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
+
 add_executable(generic-ide ${SOURCE_CODE} "source/gfx/renderer_${GIDE_RENDERER}.cpp")
 
 target_link_libraries(generic-ide PUBLIC

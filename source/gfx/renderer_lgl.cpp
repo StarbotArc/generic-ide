@@ -24,15 +24,23 @@ Renderer::~Renderer()
 {
 	purge(this->drawables);
 }
+
 void Renderer::append(Drawable* drawable)
 {
 	this->drawables.push_back(drawable);
 }
-// TODO: This method should probably be finished later.
 Drawable* Renderer::find(std::string drawable)
 {
-	return NULL;
+	for (Drawable* d : this->drawables)
+	{
+		if (d->getName() != drawable) continue;
+
+		return d;
+	}
+
+	return nullptr;
 }
+
 void Renderer::draw()
 {
 	glPushMatrix();
@@ -57,6 +65,7 @@ FontRenderer::~FontRenderer()
 		glDeleteTextures(1, &this->font_glyphs[c].texture);
 	}
 }
+
 void FontRenderer::init()
 {
 	FT_Library ft;
@@ -96,8 +105,8 @@ void FontRenderer::init()
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
 		unsigned char bitmap[face->glyph->bitmap.width * face->glyph->bitmap.rows << 2];
 		for (int i = 0; i < face->glyph->bitmap.width * face->glyph->bitmap.rows; i++)
@@ -136,26 +145,34 @@ void FontRenderer::init()
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
 }
-void FontRenderer::print(std::string text, float x, float y, float scale, int width, int height)
+
+// This function is used for scaling the text properly.
+void FontRenderer::resize(unsigned int width, unsigned int height)
 {
-	scale /= 96.0f;
+	this->window_width = width;
+	this->window_height = height;
+}
 
-	glPushMatrix();
-	glScalef(2.0f, -2.0f, 0.0f);
-	glTranslatef(-0.5f, -0.5f, 0.0f);
-
+void FontRenderer::print(std::string text, float x, float y, float scale)
+{
 	std::string::const_iterator character;
 
 	glEnable(GL_TEXTURE_2D);
+
+	float ww = static_cast<float>(this->window_width);
+	float wh = static_cast<float>(this->window_height);
+	
+	float highest = static_cast<float>(this->font_glyphs[31].size[1]);
+	
 	for (character = text.begin(); character != text.end(); character++)
 	{
 		Glyph glyph = this->font_glyphs[*character];
 		
-		float w = glyph.size[0] * scale;
-		float h = glyph.size[1] * scale;
+		float w = glyph.size[0] * (scale / ww);
+		float h = glyph.size[1] * (scale / wh);
 
-		float xpos = x + glyph.offset[0] * scale;
-		float ypos = y + (-glyph.offset[1]) * scale;
+		float xpos = x + glyph.offset[0] * (scale / ww);
+		float ypos = y + (highest - glyph.offset[1]) * (scale / wh);
 
 		glBindTexture(GL_TEXTURE_2D, glyph.texture);
 
@@ -171,13 +188,17 @@ void FontRenderer::print(std::string text, float x, float y, float scale, int wi
 		glTexCoord2f(1.0f, 0.0f);
 		glEnd();
 
-		x += (glyph.shift >> 6) * scale;
+		x += (glyph.shift >> 6) * (scale / ww);
 	}
 	glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
 }
 
 Drawable::Drawable(std::string name)
 {
 	this->name = name;
+}
+
+std::string Drawable::getName()
+{
+	return this->name;
 }

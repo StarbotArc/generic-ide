@@ -23,6 +23,8 @@ namespace gfx
 
 		virtual void update() {};
 		virtual void draw() {};
+
+		std::string getName();
 	protected:
 		std::string name;
 	};
@@ -42,8 +44,12 @@ namespace gfx
 
 		void init();
 
-		void print(std::string text, float x, float y, float scale, int width, int height);
+		void resize(unsigned int width, unsigned int height);
+
+		void print(std::string text, float x, float y, float scale);
 	private:
+		unsigned int window_width, window_height;
+
 		std::string font;
 		Glyph font_glyphs[128];
 	};
