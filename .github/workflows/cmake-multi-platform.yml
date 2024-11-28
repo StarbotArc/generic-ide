@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: "Install OpenGL"
         run: |
-              "sudo apt-get install libglx0"
+              "sudo apt-get install libglx-mesa0"
       - name: "Install GLFW"
         run: |
               "sudo apt-get install libglfw3"
