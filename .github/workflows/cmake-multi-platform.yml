@@ -9,6 +9,19 @@ on:
     branches: [ "main" ]
 
 jobs:
+  test:
+    name: Linux Get Libraries
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Install OpenGL"
+        run: |
+              "sudo apt-get install libglx0"
+      - name: "Install GLFW"
+        run: |
+              "sudo apt-get install libglfw3"
+      - name: "Install FreeType2"
+        run: |
+              "sudo apt-get install libfreetype6"
   build:
     runs-on: ${{ matrix.os }}
 
