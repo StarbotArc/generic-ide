@@ -9,22 +9,22 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  packages:
     name: Linux Get Libraries
     runs-on: ubuntu-latest
     steps:
-      - name: "Update apt-get"
+      - name: Update apt-get
         run: |
-              "sudo apt-get update"
-      - name: "Install OpenGL"
+              sudo apt-get update
+      - name: Install OpenGL
         run: |
-              "sudo apt-get install mesa-utils libglu1-mesa-dev freeglut3-dev mesa-common-dev"
-      - name: "Install GLFW"
+              sudo apt-get install mesa-utils libglu1-mesa-dev freeglut3-dev mesa-common-dev
+      - name: Install GLFW
         run: |
-              "sudo apt-get install libglfw3"
-      - name: "Install FreeType2"
+              sudo apt-get install libglfw3
+      - name: Install FreeType2
         run: |
-              "sudo apt-get install libfreetype6"
+              sudo apt-get install libfreetype6
   build:
     runs-on: ${{ matrix.os }}
 
